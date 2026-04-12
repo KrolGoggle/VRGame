@@ -6,6 +6,7 @@ public class TeleportationActivator : MonoBehaviour
 {
 
     public XRRayInteractor teleportInteractor;
+    public XRRayInteractor rayInteractor;
     public InputActionProperty teleportActivatorAction;
 
     public 
@@ -15,11 +16,23 @@ public class TeleportationActivator : MonoBehaviour
         teleportInteractor.gameObject.SetActive(false);
 
         teleportActivatorAction.action.performed += ActionPerformed;
+
+        rayInteractor.uiHoverEntered.AddListener(x => DisableTeleportRay());
     }
 
     private void ActionPerformed(InputAction.CallbackContext context)
-    {
+    {   
+        if(rayInteractor && rayInteractor.IsOverUIGameObject())
+        {
+            return;
+        }
+
         teleportInteractor.gameObject.SetActive(true);
+    }
+
+    public void DisableTeleportRay()
+    {
+        teleportInteractor.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
