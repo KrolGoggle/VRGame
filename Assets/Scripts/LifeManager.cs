@@ -9,9 +9,12 @@ public class LifeManager : MonoBehaviour
     public TMP_Text livesText;
 
     [Header("Ustawienia")]
-    public int maxLives = 3;
+    public int maxLives = 5;
 
     private int _lives;
+
+    public MenuManager menu;
+    public SpawnerLogic spawner;
 
     void Awake()
     {
@@ -47,5 +50,7 @@ public class LifeManager : MonoBehaviour
     void GameOver()
     {
         Debug.Log("Game Over!");
+        spawner.StopSpawning();
+        menu.Show();
     }
 }

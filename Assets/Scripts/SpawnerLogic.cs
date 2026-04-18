@@ -1,26 +1,34 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using System.Collections;
+using TMPro;
 
 public class SpawnerLogic : MonoBehaviour
 {
     [Header("Prefab")]
     public GameObject prefabToSpawn;
 
-    [Header("Strefy (GameObjecty z BoxCollider)")]
+    [Header("Strefy")]
     public BoxCollider[] zones;
 
     [Header("XR")]
     public XRInteractionManager xrInteractionManager;
 
-    [Header("Interwa�")]
+    [Header("Interwal")]
     public float startInterval = 2f;
     public float minInterval = 0.3f;
     public float accelerationRate = 5f;
     public float accelerationStep = 0.1f;
 
+    [Header("Odliczanie")]
+    public float countdownDuration = 3f;
+    public TMP_Text countdownText;
+
     private float _currentInterval;
     private float _spawnTimer;
     private float _accelerationTimer;
+
+    private bool _running = false;
 
     void Start()
     {
@@ -34,6 +42,8 @@ public class SpawnerLogic : MonoBehaviour
 
     void Update()
     {
+        if (!_running) return;
+
         HandleAcceleration();
         HandleSpawning();
     }
@@ -78,5 +88,49 @@ public class SpawnerLogic : MonoBehaviour
 
         foreach (var interactable in spawned.GetComponentsInChildren<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>())
             interactable.interactionManager = xrInteractionManager;
+    }
+
+    public void StartSpawning()
+    {
+        StartCoroutine(CountdownThenSpawn());
+    }
+
+    public void StopSpawning()
+    {
+        StopAllCoroutines();
+        _running = false;
+        _currentInterval = startInterval;
+        _spawnTimer = startInterval;
+        _accelerationTimer = accelerationRate;
+    }
+
+    IEnumerator CountdownThenSpawn()
+    {
+        float timer = countdownDuration;
+
+        if (countdownText != null) { 
+            Debug.Log("CountdownText Object not found");
+            yield break;
+        }
+
+        countdownText.gameObject.SetActive(true);
+
+        while (timer > 0f)
+        {
+            if (countdownText != null)
+                countdownText.text = Mathf.CeilToInt(timer).ToString();
+
+            yield return new WaitForSeconds(1f);
+            timer -= 1f;
+        }
+
+        countdownText.text = "Start!";
+        yield return new WaitForSeconds(0.8f);
+        countdownText.gameObject.SetActive(false);
+
+        _running = true;
+        _currentInterval = startInterval;
+        _spawnTimer = startInterval;
+        _accelerationTimer = accelerationRate;
     }
 }

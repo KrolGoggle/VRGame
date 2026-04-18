@@ -5,6 +5,10 @@ public class Ground : MonoBehaviour
     public BoxCollider zone;
     public string targetTag = "Egg";
 
+    void Start()
+    {
+    }
+
     void Awake()
     {
         if (zone == null)
