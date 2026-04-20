@@ -75,7 +75,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8306384692432599271}
   serializedVersion: 5
-  m_Mass: 0.2
+  m_Mass: 0.15
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -122,13 +122,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8306384692432599271}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: abfeed05349c3d344b54e227b7245b9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  clipCrack: {fileID: 8300000, guid: 3e7c9a70633908743b6970038bff5497, type: 3}
-  clipGood: {fileID: 8300000, guid: a11907f5eedabf04790c2b3ddd50ef65, type: 3}
 --- !u!1 &9189064900115250841
 GameObject:
   m_ObjectHideFlags: 0

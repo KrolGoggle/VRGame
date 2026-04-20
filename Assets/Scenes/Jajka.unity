@@ -1478,7 +1478,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   livesText: {fileID: 761006548}
-  maxLives: 5
+  maxLives: 6
   menu: {fileID: 896696823}
   spawner: {fileID: 1671399120}
   score: {fileID: 1897711192}
@@ -5073,7 +5073,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1101350761}
   m_LocalRotation: {x: 0.2889063, y: -0, z: -0, w: 0.9573574}
-  m_LocalPosition: {x: 0, y: 0, z: 0.27}
+  m_LocalPosition: {x: 0, y: 0, z: 0.253}
   m_LocalScale: {x: 0.0009383, y: 0.0009383, z: 0.0009383}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -5086,7 +5086,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 33.585, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.068, y: 0.72}
+  m_AnchoredPosition: {x: 0.068, y: 0.694}
   m_SizeDelta: {x: 1068.6, y: 433}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1101410903
@@ -7967,7 +7967,7 @@ MonoBehaviour:
   - {fileID: 374706314}
   xrInteractionManager: {fileID: 1943613786}
   startInterval: 2.5
-  minInterval: 0.4
+  minInterval: 0.2
   accelerationRate: 4
   accelerationStep: 0.05
   countdownDuration: 3
