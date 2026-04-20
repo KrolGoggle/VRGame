@@ -8,7 +8,7 @@ public class ScoreManager : MonoBehaviour
     [Header("UI")]
     public TMP_Text scoreText;
 
-    private int _score;
+    private int _score = 0;
 
     void Awake()
     {

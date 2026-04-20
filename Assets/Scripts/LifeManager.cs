@@ -15,6 +15,9 @@ public class LifeManager : MonoBehaviour
 
     public MenuManager menu;
     public SpawnerLogic spawner;
+    public ScoreManager score;
+
+    public AudioClip clipGameOver;
 
     void Awake()
     {
@@ -52,5 +55,8 @@ public class LifeManager : MonoBehaviour
         Debug.Log("Game Over!");
         spawner.StopSpawning();
         menu.Show();
+        AudioSource.PlayClipAtPoint(clipGameOver, new Vector3(0f,0f,0f), 0.5f);
+        _lives = maxLives; // Reset lives for next game
+        score.ResetScore(); // Reset score for next game
     }
 }

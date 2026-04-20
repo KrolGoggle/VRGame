@@ -6,7 +6,9 @@ using TMPro;
 public class SpawnerLogic : MonoBehaviour
 {
     [Header("Prefab")]
-    public GameObject prefabToSpawn;
+    public GameObject prefabToSpawnHM;
+    public GameObject prefabToSpawnBM;
+    public GameObject _currentPrefab;
 
     [Header("Strefy")]
     public BoxCollider[] zones;
@@ -62,7 +64,7 @@ public class SpawnerLogic : MonoBehaviour
 
     void HandleSpawning()
     {
-        if (prefabToSpawn == null || zones.Length == 0) return;
+        if (_currentPrefab == null || zones.Length == 0) return;
 
         _spawnTimer -= Time.deltaTime;
         if (_spawnTimer <= 0f)
@@ -84,7 +86,7 @@ public class SpawnerLogic : MonoBehaviour
             center.z + Random.Range(-size.z / 2f, size.z / 2f)
         );
 
-        GameObject spawned = Instantiate(prefabToSpawn, pos, Quaternion.identity);
+        GameObject spawned = Instantiate(_currentPrefab, pos, Quaternion.identity);
 
         foreach (var interactable in spawned.GetComponentsInChildren<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>())
             interactable.interactionManager = xrInteractionManager;
@@ -92,12 +94,14 @@ public class SpawnerLogic : MonoBehaviour
 
     public void StartSpawning()
     {
-        StartCoroutine(CountdownThenSpawn());
+        //StartCoroutine(CountdownThenSpawn());
+        _running = true;
     }
 
     public void StopSpawning()
     {
         StopAllCoroutines();
+        DestroyAllEggs();
         _running = false;
         _currentInterval = startInterval;
         _spawnTimer = startInterval;
@@ -121,6 +125,7 @@ public class SpawnerLogic : MonoBehaviour
                 countdownText.text = Mathf.CeilToInt(timer).ToString();
 
             yield return new WaitForSeconds(1f);
+            Debug.Log("Countdown: " + Mathf.CeilToInt(timer));
             timer -= 1f;
         }
 
@@ -132,5 +137,18 @@ public class SpawnerLogic : MonoBehaviour
         _currentInterval = startInterval;
         _spawnTimer = startInterval;
         _accelerationTimer = accelerationRate;
+    }
+
+    public void DestroyAllEggs()
+    {
+        foreach (var egg in GameObject.FindGameObjectsWithTag("Egg"))
+            Destroy(egg);
+    }
+
+    public void SetPrefab(string prefab) {
+        if (prefab == "HM")
+            _currentPrefab = prefabToSpawnHM;
+        if (prefab == "BM")
+            _currentPrefab = prefabToSpawnBM;
     }
 }

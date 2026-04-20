@@ -15,6 +15,15 @@ public class MenuManager : MonoBehaviour
     public SpawnerLogic spawner;
     public GameObject menuPanel;
 
+    void Start()
+    {
+        toggleH.onValueChanged.AddListener(isOn => { if (isOn) spawner.SetPrefab("HM"); });
+        toggleB.onValueChanged.AddListener(isOn => { if (isOn) spawner.SetPrefab("BM"); });
+
+        if (toggleH.isOn) spawner.SetPrefab("HM");
+        else if (toggleB.isOn) spawner.SetPrefab("BM");
+    }
+
     public void OnStartPressed()
     {
         if (!toggleH.isOn && !toggleB.isOn)

@@ -4,6 +4,7 @@ public class BasketZone : MonoBehaviour
 {
     public BoxCollider zone;
     public string targetTag = "Egg";
+    public AudioClip clipGood;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -24,6 +25,7 @@ public class BasketZone : MonoBehaviour
         if (string.IsNullOrEmpty(targetTag) || other.CompareTag(targetTag))
         {
             ScoreManager.Instance?.AddPoint(1);
+            AudioSource.PlayClipAtPoint(clipGood, transform.position, 0.35f);
             Destroy(other.gameObject);
         }
     }
