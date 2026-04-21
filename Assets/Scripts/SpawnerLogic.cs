@@ -8,6 +8,7 @@ public class SpawnerLogic : MonoBehaviour
     [Header("Prefab")]
     public GameObject prefabToSpawnHM;
     public GameObject prefabToSpawnBM;
+    public GameObject rottenEggPrefab;
     public GameObject _currentPrefab;
 
     [Header("Strefy")]
@@ -30,7 +31,7 @@ public class SpawnerLogic : MonoBehaviour
     private float _spawnTimer;
     private float _accelerationTimer;
 
-    private bool _running = false;
+    public static bool _gameRunning = false;
 
     void Start()
     {
@@ -44,7 +45,7 @@ public class SpawnerLogic : MonoBehaviour
 
     void Update()
     {
-        if (!_running) return;
+        if (!_gameRunning) return;
 
         HandleAcceleration();
         HandleSpawning();
@@ -85,8 +86,8 @@ public class SpawnerLogic : MonoBehaviour
             center.y + Random.Range(-size.y / 2f, size.y / 2f),
             center.z + Random.Range(-size.z / 2f, size.z / 2f)
         );
-
-        GameObject spawned = Instantiate(_currentPrefab, pos, Quaternion.identity);
+        //randomly 30 percent for rotten and 70 for currentprefab
+        GameObject spawned = Random.Range(0f, 1f) < 0.3f ? Instantiate(rottenEggPrefab, pos, Quaternion.identity) : Instantiate(_currentPrefab, pos, Quaternion.identity);
 
         foreach (var interactable in spawned.GetComponentsInChildren<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>())
             interactable.interactionManager = xrInteractionManager;
@@ -95,14 +96,14 @@ public class SpawnerLogic : MonoBehaviour
     public void StartSpawning()
     {
         //StartCoroutine(CountdownThenSpawn());
-        _running = true;
+        _gameRunning = true;
     }
 
     public void StopSpawning()
     {
         StopAllCoroutines();
         DestroyAllEggs();
-        _running = false;
+        _gameRunning = false;
         _currentInterval = startInterval;
         _spawnTimer = startInterval;
         _accelerationTimer = accelerationRate;
@@ -133,7 +134,7 @@ public class SpawnerLogic : MonoBehaviour
         yield return new WaitForSeconds(0.8f);
         countdownText.gameObject.SetActive(false);
 
-        _running = true;
+        _gameRunning = true;
         _currentInterval = startInterval;
         _spawnTimer = startInterval;
         _accelerationTimer = accelerationRate;
