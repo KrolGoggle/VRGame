@@ -24,6 +24,7 @@ public class ScoreManager : MonoBehaviour
     {
         _score += amount;
         scoreText.text = _score.ToString();
+        Debug.Log($"Score updated: {_score}");
     }
 
     public void ResetScore()

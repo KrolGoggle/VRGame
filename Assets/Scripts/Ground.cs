@@ -5,6 +5,7 @@ public class Ground : MonoBehaviour
     public BoxCollider zone;
     public string targetTag = "Egg";
     public AudioClip clipCrack;
+    public AudioClip clipBOOM;
 
     void Start()
     {
@@ -26,7 +27,13 @@ public class Ground : MonoBehaviour
         if (string.IsNullOrEmpty(targetTag) || other.CompareTag(targetTag))
         {
             LifeManager.Instance?.LoseLife();
-            AudioSource.PlayClipAtPoint(clipCrack, transform.position, 0.35f);
+            AudioSource.PlayClipAtPoint(clipCrack, transform.position, 0.15f);
+            Destroy(other.gameObject);
+        }
+
+        if (other.CompareTag("RottenEgg"))
+        {
+            AudioSource.PlayClipAtPoint(clipBOOM, transform.position, 0.15f);
             Destroy(other.gameObject);
         }
     }

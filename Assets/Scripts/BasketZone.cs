@@ -26,14 +26,14 @@ public class BasketZone : MonoBehaviour
         if (string.IsNullOrEmpty(targetTag) || other.CompareTag(targetTag))
         {
             ScoreManager.Instance?.AddPoint(1);
-            AudioSource.PlayClipAtPoint(clipGood, transform.position, 0.35f);
+            AudioSource.PlayClipAtPoint(clipGood, transform.position, 0.15f);
             Destroy(other.gameObject);
         }
         if(other.CompareTag("RottenEgg"))
         {
             ScoreManager.Instance?.AddPoint(-1);
             LifeManager.Instance?.LoseLife();
-            AudioSource.PlayClipAtPoint(clipBad, transform.position, 0.35f);
+            AudioSource.PlayClipAtPoint(clipBad, transform.position, 0.15f);
             Destroy(other.gameObject);
         }
     }

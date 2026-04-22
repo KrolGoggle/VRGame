@@ -86,8 +86,8 @@ public class SpawnerLogic : MonoBehaviour
             center.y + Random.Range(-size.y / 2f, size.y / 2f),
             center.z + Random.Range(-size.z / 2f, size.z / 2f)
         );
-        //randomly 30 percent for rotten and 70 for currentprefab
-        GameObject spawned = Random.Range(0f, 1f) < 0.3f ? Instantiate(rottenEggPrefab, pos, Quaternion.identity) : Instantiate(_currentPrefab, pos, Quaternion.identity);
+        //randomly 25 percent for rotten and 75 for currentprefab
+        GameObject spawned = Random.Range(0f, 1f) < 0.25f ? Instantiate(rottenEggPrefab, pos, Quaternion.identity) : Instantiate(_currentPrefab, pos, Quaternion.identity);
 
         foreach (var interactable in spawned.GetComponentsInChildren<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>())
             interactable.interactionManager = xrInteractionManager;
@@ -143,6 +143,8 @@ public class SpawnerLogic : MonoBehaviour
     public void DestroyAllEggs()
     {
         foreach (var egg in GameObject.FindGameObjectsWithTag("Egg"))
+            Destroy(egg);
+        foreach (var egg in GameObject.FindGameObjectsWithTag("RottenEgg"))
             Destroy(egg);
     }
 

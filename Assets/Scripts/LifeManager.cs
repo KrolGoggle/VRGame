@@ -38,6 +38,7 @@ public class LifeManager : MonoBehaviour
     public void LoseLife()
     {
         _lives = Mathf.Max(0, _lives - 1);
+        Debug.Log($"Live lost: {_lives}");
         UpdateUI();
 
         if (_lives <= 0)
@@ -58,5 +59,6 @@ public class LifeManager : MonoBehaviour
         AudioSource.PlayClipAtPoint(clipGameOver, new Vector3(0f,0f,0f), 0.5f);
         _lives = maxLives; // Reset lives for next game
         score.ResetScore(); // Reset score for next game
+        UpdateUI();
     }
 }
