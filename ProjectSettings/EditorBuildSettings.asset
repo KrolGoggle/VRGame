@@ -8,12 +8,14 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Main.unity
     guid: 8e8b4c244605d5e4b84af8555c3d3114
+  - enabled: 1
+    path: Assets/Scenes/Jajka.unity
+    guid: b184c00d5a29f304ca816bee8a9b9120
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 45b44fb37b4800140867d8238e74f381, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 8d7d087985b7beb4f88c39e73c7e15c6, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 22e09917904bd4f4f9cf1926fd3895a5, type: 2}
-  m_UseUCBPForAssetBundles: 0
