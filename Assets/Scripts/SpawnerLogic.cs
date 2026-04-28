@@ -13,6 +13,7 @@ public class SpawnerLogic : MonoBehaviour
 
     [Header("Strefy")]
     public BoxCollider[] zones;
+    public Transform rottenEggSpawnPos;
 
     [Header("XR")]
     public XRInteractionManager xrInteractionManager;
@@ -43,38 +44,42 @@ public class SpawnerLogic : MonoBehaviour
         _accelerationTimer = accelerationRate;
     }
 
-    void Update()
+    public void StartGame()
     {
-        if (!_gameRunning) return;
-
-        HandleAcceleration();
-        HandleSpawning();
+        // StartCoroutine(AccelerationRoutine());
+        StartCoroutine(SpawningRoutine());
     }
 
-    void HandleAcceleration()
-    {
-        if (_currentInterval <= minInterval) return;
+    // IEnumerator AccelerationRoutine()
+    // {
+    //     while (_gameRunning)
+    //     {
+    //         if (_currentInterval > minInterval)
+    //         {
+    //             _currentInterval = Mathf.Max(minInterval, _currentInterval - accelerationStep);
+    //         }
 
-        _accelerationTimer -= Time.deltaTime;
-        if (_accelerationTimer <= 0f)
+    //         yield return new WaitForSeconds(accelerationRate);
+    //     }
+    // }
+    void ApplyAcceleration()
+    {
+        _currentInterval = Mathf.Max(minInterval, _currentInterval - accelerationStep);
+    }
+    IEnumerator SpawningRoutine()
+    {
+        while (_gameRunning)
         {
-            _currentInterval = Mathf.Max(minInterval, _currentInterval - accelerationStep);
-            _accelerationTimer = accelerationRate;
+            if (_currentPrefab != null && zones.Length > 0)
+            {
+                SpawnInRandomZone();
+
+                ApplyAcceleration(); 
+            }
+
+            yield return new WaitForSeconds(_currentInterval);
         }
     }
-
-    void HandleSpawning()
-    {
-        if (_currentPrefab == null || zones.Length == 0) return;
-
-        _spawnTimer -= Time.deltaTime;
-        if (_spawnTimer <= 0f)
-        {
-            SpawnInRandomZone();
-            _spawnTimer = _currentInterval;
-        }
-    }
-
     void SpawnInRandomZone()
     {
         int spawnCount = Random.Range(0f, 1f) < 0.1f ? 2 : 1;
@@ -91,7 +96,7 @@ public class SpawnerLogic : MonoBehaviour
             );
 
             GameObject spawned = Random.Range(0f, 1f) < 0.25f
-                ? Instantiate(rottenEggPrefab, pos, Quaternion.identity)
+                ? Instantiate(rottenEggPrefab, rottenEggSpawnPos.position, Quaternion.identity)
                 : Instantiate(_currentPrefab, pos, Quaternion.identity);
 
             foreach (var interactable in spawned.GetComponentsInChildren<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>())
@@ -103,6 +108,7 @@ public class SpawnerLogic : MonoBehaviour
     {
         //StartCoroutine(CountdownThenSpawn());
         _gameRunning = true;
+        StartGame();
     }
 
     public void StopSpawning()
