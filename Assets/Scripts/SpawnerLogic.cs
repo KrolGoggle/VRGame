@@ -77,20 +77,26 @@ public class SpawnerLogic : MonoBehaviour
 
     void SpawnInRandomZone()
     {
-        BoxCollider zone = zones[Random.Range(0, zones.Length)];
-        Vector3 center = zone.transform.position + zone.center;
-        Vector3 size = Vector3.Scale(zone.size, zone.transform.lossyScale);
+        int spawnCount = Random.Range(0f, 1f) < 0.1f ? 2 : 1;
 
-        Vector3 pos = new Vector3(
-            center.x + Random.Range(-size.x / 2f, size.x / 2f),
-            center.y + Random.Range(-size.y / 2f, size.y / 2f),
-            center.z + Random.Range(-size.z / 2f, size.z / 2f)
-        );
-        //randomly 25 percent for rotten and 75 for currentprefab
-        GameObject spawned = Random.Range(0f, 1f) < 0.25f ? Instantiate(rottenEggPrefab, pos, Quaternion.identity) : Instantiate(_currentPrefab, pos, Quaternion.identity);
+        for (int i = 0; i < spawnCount; i++)
+        {
+            BoxCollider zone = zones[Random.Range(0, zones.Length)];
+            Vector3 center = zone.transform.position + zone.center;
+            Vector3 size = Vector3.Scale(zone.size, zone.transform.lossyScale);
+            Vector3 pos = new Vector3(
+                center.x + Random.Range(-size.x / 2f, size.x / 2f),
+                center.y + Random.Range(-size.y / 2f, size.y / 2f),
+                center.z + Random.Range(-size.z / 2f, size.z / 2f)
+            );
 
-        foreach (var interactable in spawned.GetComponentsInChildren<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>())
-            interactable.interactionManager = xrInteractionManager;
+            GameObject spawned = Random.Range(0f, 1f) < 0.25f
+                ? Instantiate(rottenEggPrefab, pos, Quaternion.identity)
+                : Instantiate(_currentPrefab, pos, Quaternion.identity);
+
+            foreach (var interactable in spawned.GetComponentsInChildren<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>())
+                interactable.interactionManager = xrInteractionManager;
+        }
     }
 
     public void StartSpawning()
