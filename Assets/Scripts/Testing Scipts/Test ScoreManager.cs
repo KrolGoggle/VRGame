@@ -1,9 +1,9 @@
 using UnityEngine;
 using TMPro;
 
-public class ScoreManager : MonoBehaviour
+public class TestScoreManager : MonoBehaviour
 {
-    public static ScoreManager Instance { get; private set; }
+    public static TestScoreManager Instance { get; private set; }
 
     [Header("UI")]
     public TMP_Text scoreText;

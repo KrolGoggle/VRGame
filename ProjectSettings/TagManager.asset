@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - ScoreZone
   - RottenEgg
+  - PlayerHand
   layers:
   - Default
   - TransparentFX
