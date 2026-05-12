@@ -46,7 +46,10 @@ public class TestBasketZone : MonoBehaviour
         }
 
         eggsInBasket.Clear();
-        AudioSource.PlayClipAtPoint(clipGood, transform.position, 0.15f);
+        if (processedEggs >= 1)
+        {
+            AudioSource.PlayClipAtPoint(clipGood, transform.position, 0.15f);
+        }
         Debug.Log("Do koszyka wrzucono i podliczono jajek: " + processedEggs);
     }
 
