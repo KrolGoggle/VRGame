@@ -16,7 +16,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Rura
   - 
   - 
   - 
@@ -43,6 +43,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: UI
+    uniqueID: 133775333
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
