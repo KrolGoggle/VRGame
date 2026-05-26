@@ -13,7 +13,6 @@ public class SpawnerLogic : MonoBehaviour
 
     [Header("Strefy")]
     public BoxCollider[] zones;
-    public Transform rottenEggSpawnPos;
 
     [Header("XR")]
     public XRInteractionManager xrInteractionManager;
@@ -64,22 +63,26 @@ public class SpawnerLogic : MonoBehaviour
     // }
     void ApplyAcceleration()
     {
-        _currentInterval = Mathf.Max(minInterval, _currentInterval - accelerationStep);
+        _accelerationTimer -= _currentInterval;
+        if (_accelerationTimer <= 0f)
+        {
+            _currentInterval = Mathf.Max(minInterval, _currentInterval - accelerationStep);
+            _accelerationTimer = accelerationRate;
+        }
     }
+
     IEnumerator SpawningRoutine()
     {
         while (_gameRunning)
         {
             if (_currentPrefab != null && zones.Length > 0)
-            {
                 SpawnInRandomZone();
 
-                ApplyAcceleration(); 
-            }
-
             yield return new WaitForSeconds(_currentInterval);
+            ApplyAcceleration();
         }
     }
+
     void SpawnInRandomZone()
     {
         int spawnCount = Random.Range(0f, 1f) < 0.1f ? 2 : 1;
@@ -95,8 +98,11 @@ public class SpawnerLogic : MonoBehaviour
                 center.z + Random.Range(-size.z / 2f, size.z / 2f)
             );
 
-            GameObject spawned = Random.Range(0f, 1f) < 0.25f
-                ? Instantiate(rottenEggPrefab, rottenEggSpawnPos.position, Quaternion.identity)
+
+            GameObject spawned;
+
+            spawned = Random.Range(0f, 1f) < 0.25f
+                ? Instantiate(rottenEggPrefab, pos, Quaternion.identity)
                 : Instantiate(_currentPrefab, pos, Quaternion.identity);
 
             foreach (var interactable in spawned.GetComponentsInChildren<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>())
@@ -106,47 +112,18 @@ public class SpawnerLogic : MonoBehaviour
 
     public void StartSpawning()
     {
-        //StartCoroutine(CountdownThenSpawn());
+        Debug.Log("Starting spawning");
         _gameRunning = true;
         StartGame();
     }
 
     public void StopSpawning()
     {
+        Debug.Log("stopping spawning");
+        _gameRunning = false;
         StopAllCoroutines();
         DestroyAllEggs();
-        _gameRunning = false;
-        _currentInterval = startInterval;
-        _spawnTimer = startInterval;
-        _accelerationTimer = accelerationRate;
-    }
 
-    IEnumerator CountdownThenSpawn()
-    {
-        float timer = countdownDuration;
-
-        if (countdownText != null) { 
-            Debug.Log("CountdownText Object not found");
-            yield break;
-        }
-
-        countdownText.gameObject.SetActive(true);
-
-        while (timer > 0f)
-        {
-            if (countdownText != null)
-                countdownText.text = Mathf.CeilToInt(timer).ToString();
-
-            yield return new WaitForSeconds(1f);
-            Debug.Log("Countdown: " + Mathf.CeilToInt(timer));
-            timer -= 1f;
-        }
-
-        countdownText.text = "Start!";
-        yield return new WaitForSeconds(0.8f);
-        countdownText.gameObject.SetActive(false);
-
-        _gameRunning = true;
         _currentInterval = startInterval;
         _spawnTimer = startInterval;
         _accelerationTimer = accelerationRate;
@@ -154,13 +131,15 @@ public class SpawnerLogic : MonoBehaviour
 
     public void DestroyAllEggs()
     {
+        Debug.Log("destroying all eggs");
         foreach (var egg in GameObject.FindGameObjectsWithTag("Egg"))
             Destroy(egg);
         foreach (var egg in GameObject.FindGameObjectsWithTag("RottenEgg"))
             Destroy(egg);
     }
 
-    public void SetPrefab(string prefab) {
+    public void SetPrefab(string prefab)
+    {
         if (prefab == "HM")
             _currentPrefab = prefabToSpawnHM;
         if (prefab == "BM")
