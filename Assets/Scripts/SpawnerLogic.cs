@@ -43,10 +43,15 @@ public class SpawnerLogic : MonoBehaviour
         _accelerationTimer = accelerationRate;
     }
 
-    public void StartGame()
+    public IEnumerator StartGame()
     {
         // StartCoroutine(AccelerationRoutine());
+        MusicManager.instance.PlayStartGameMusic();
+        yield return new WaitForSeconds(5f); // krótka przerwa przed odliczaniem
+        MusicManager.instance.PlayInGameMusic();
+        yield return new WaitForSeconds(1f); // krótka przerwa przed odliczaniem
         StartCoroutine(SpawningRoutine());
+        yield return null;
     }
 
     // IEnumerator AccelerationRoutine()
@@ -114,7 +119,7 @@ public class SpawnerLogic : MonoBehaviour
     {
         Debug.Log("Starting spawning");
         _gameRunning = true;
-        StartGame();
+        StartCoroutine(StartGame());
     }
 
     public void StopSpawning()
