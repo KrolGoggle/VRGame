@@ -38,20 +38,21 @@ public class ScoreManager : MonoBehaviour
         }
         else _combo += 1;
         comboText.text = _combo.ToString();
-        scoreText.text = _score.ToString();
+        //scoretext should be like 0285 or 0085, so we need to add leading zeros
+        scoreText.text = _score.ToString("D4");
         Debug.Log($"Score updated: {_score}");
     }
 
     public void ResetScore()
     {
         _score = 0;
-        scoreText.text = "0";
+        scoreText.text = "0000";
     }
 
     public void ResetCombo()
     {
         _combo = 0;
-        comboText.text = "0";
+        comboText.text = "0000";
     }
 
 

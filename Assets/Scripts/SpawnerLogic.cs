@@ -90,7 +90,8 @@ public class SpawnerLogic : MonoBehaviour
 
     void SpawnInRandomZone()
     {
-        int spawnCount = Random.Range(0f, 1f) < 0.1f ? 2 : 1;
+        int spawnCount = 1;
+        //Random.Range(0f, 1f) < 0.1f ? 2 : 1;
 
         for (int i = 0; i < spawnCount; i++)
         {
