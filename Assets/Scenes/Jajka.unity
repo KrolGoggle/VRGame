@@ -9751,6 +9751,7 @@ MonoBehaviour:
   targetTag: Egg
   clipCrack: {fileID: 8300000, guid: 3e7c9a70633908743b6970038bff5497, type: 3}
   clipBOOM: {fileID: 8300000, guid: 2f0408c3106c5f94c91d9130950c5796, type: 3}
+  smallChicken: {fileID: 1036876630705986439, guid: 2c7c648f26efb6c4fbca92569da9fc99, type: 3}
 --- !u!1001 &1026880190
 PrefabInstance:
   m_ObjectHideFlags: 0
