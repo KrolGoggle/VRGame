@@ -7,6 +7,8 @@ public class Ground : MonoBehaviour
     public AudioClip clipCrack;
     public AudioClip clipBOOM;
     public GameObject smallChicken;
+    public GameObject explosionParticlesPrefab;
+    public GameObject explosionSpritePrefab;
 
     void Start()
     {
@@ -38,6 +40,14 @@ public class Ground : MonoBehaviour
         if (other.CompareTag("RottenEgg"))
         {
             AudioSource.PlayClipAtPoint(clipBOOM, transform.position, 0.15f);
+            if (explosionParticlesPrefab != null)
+            {
+                Instantiate(explosionParticlesPrefab, other.transform.position, Quaternion.identity);
+            }
+            if (explosionSpritePrefab != null)
+            {
+                Instantiate(explosionSpritePrefab, other.transform.position, Quaternion.identity);
+            }
             Destroy(other.gameObject);
         }
     }

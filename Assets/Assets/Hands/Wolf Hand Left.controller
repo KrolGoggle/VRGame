@@ -9,7 +9,7 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: -8945691123924629249, guid: fa383cedc800ad54cb41eaf9402be8ca, type: 3}
+    m_Motion: {fileID: -8945691123924629249, guid: f8c4aa80852bb164a892861f48584375, type: 3}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -17,7 +17,7 @@ BlendTree:
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 5978651762570310600, guid: fa383cedc800ad54cb41eaf9402be8ca, type: 3}
+    m_Motion: {fileID: 5978651762570310600, guid: f8c4aa80852bb164a892861f48584375, type: 3}
     m_Threshold: 0.5
     m_Position: {x: 1, y: 0}
     m_TimeScale: 1
@@ -25,7 +25,7 @@ BlendTree:
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: -1662346245629514813, guid: fa383cedc800ad54cb41eaf9402be8ca, type: 3}
+    m_Motion: {fileID: -1662346245629514813, guid: f8c4aa80852bb164a892861f48584375, type: 3}
     m_Threshold: 1
     m_Position: {x: 0, y: 1}
     m_TimeScale: 1
@@ -38,7 +38,7 @@ BlendTree:
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 1
   m_NormalizedBlendValues: 0
-  m_BlendType: 2
+  m_BlendType: 3
 --- !u!91 &9100000
 AnimatorController:
   m_ObjectHideFlags: 0

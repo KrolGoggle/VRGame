@@ -9,6 +9,10 @@ public class RunningSmallChicken : MonoBehaviour
     private Vector3 direction;
     private float timer;
 
+    public AudioClip spawnSound;
+    public AudioClip[] cluckSounds;
+    public AudioSource audioSource;
+
     void Start()
     {
         SetRandomDirection();
@@ -34,6 +38,8 @@ public class RunningSmallChicken : MonoBehaviour
                 Time.deltaTime * 5f
             );
         }
+
+        HandleAudio();
     }
 
     void SetRandomDirection()
@@ -44,5 +50,23 @@ public class RunningSmallChicken : MonoBehaviour
         float randomZ = Random.Range(-1f, 1f);
 
         direction = new Vector3(randomX, 0f, randomZ).normalized;
+    }
+
+    private void HandleAudio()
+    {
+        if (cluckSounds.Length == 0) return;
+
+        if (!audioSource.isPlaying)
+        {
+            PlayRandomCluck();
+        }
+    }
+
+    void PlayRandomCluck()
+    {
+        int randomIndex = Random.Range(0, cluckSounds.Length);
+
+        audioSource.clip = cluckSounds[randomIndex];
+        audioSource.Play();
     }
 }
