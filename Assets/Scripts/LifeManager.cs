@@ -23,6 +23,7 @@ public class LifeManager : MonoBehaviour
 
     public GameObject saveScore;
     public GameObject leaderboard;
+    public Animator bunnyAnimator;
 
     void Awake()
     {
@@ -52,7 +53,7 @@ public class LifeManager : MonoBehaviour
         Debug.Log($"Live lost: {_lives}");
         score.ResetCombo();
         UpdateUI();
-
+        bunnyAnimator.SetTrigger("laugh");
         if (_lives <= 0)
             GameOver();
     }

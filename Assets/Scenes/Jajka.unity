@@ -3816,6 +3816,7 @@ MonoBehaviour:
   clipGameOver: {fileID: 8300000, guid: 85665b3ca5f6168428e7100fc50eb73c, type: 3}
   saveScore: {fileID: 1173938255}
   leaderboard: {fileID: 2069985666}
+  bunnyAnimator: {fileID: 1784974393}
 --- !u!1 &289756006
 GameObject:
   m_ObjectHideFlags: 0
@@ -22460,8 +22461,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1784974391}
   - component: {fileID: 1784974392}
+  - component: {fileID: 1784974393}
   m_Layer: 0
-  m_Name: Tool_18603_sd_image
+  m_Name: BunnyAnim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22476,8 +22478,8 @@ Transform:
   m_GameObject: {fileID: 1784974390}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.70710677, z: 0.70710677, w: 0}
-  m_LocalPosition: {x: -3.4, y: -0, z: 92.8}
-  m_LocalScale: {x: 5.85, y: 5.85, z: 5.85}
+  m_LocalPosition: {x: 0.9, y: -32.6, z: 98.2}
+  m_LocalScale: {x: 20.27, y: 20.27, z: 20.27}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 654630976}
@@ -22531,7 +22533,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: aed093fca52e0cd43b440222940cd8e4, type: 3}
+  m_Sprite: {fileID: 422714660, guid: 711ff9c208516fd4584adb4d01896665, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -22541,6 +22543,28 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!95 &1784974393
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784974390}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0e02edafa5963fd4997ed70db4a5ca07, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1785015681
 PrefabInstance:
   m_ObjectHideFlags: 0
