@@ -1,11 +1,12 @@
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using System.Collections;
 
 public class VignetteController : MonoBehaviour
 {
-    [Header("Vignette Image")]
-    public Image vignetteImage;
+    [Header("Volume Reference")]
+    public Volume volume;
 
     [Header("Animation")]
     public float fadeInDuration = 0.2f;
@@ -13,17 +14,20 @@ public class VignetteController : MonoBehaviour
     public float fadeOutDuration = 0.8f;
 
     [Header("Intensity")]
-    [Range(0f, 1f)] public float maxAlpha = 0.85f;
+    [Range(0f, 1f)] public float maxIntensity = 0.85f;
 
+    private Vignette vignette;
     private Coroutine vignetteCoroutine;
 
     void Start()
     {
-        if (vignetteImage != null)
+        if (volume != null && volume.profile.TryGet(out vignette))
         {
-            Color c = vignetteImage.color;
-            c.a = 0f;
-            vignetteImage.color = c;
+            vignette.intensity.value = 0f;
+        }
+        else
+        {
+            Debug.LogError("Vignette not found in Volume Profile!");
         }
     }
 
@@ -37,30 +41,27 @@ public class VignetteController : MonoBehaviour
 
     private IEnumerator VignetteSequence()
     {
-        // Fade IN
-        yield return StartCoroutine(FadeVignette(0f, maxAlpha, fadeInDuration));
+        yield return StartCoroutine(FadeVignette(0f, maxIntensity, fadeInDuration));
 
-        // Hold
         yield return new WaitForSeconds(holdDuration);
 
-        // Fade OUT
-        yield return StartCoroutine(FadeVignette(maxAlpha, 0f, fadeOutDuration));
+        yield return StartCoroutine(FadeVignette(maxIntensity, 0f, fadeOutDuration));
     }
 
     private IEnumerator FadeVignette(float from, float to, float duration)
     {
         float elapsed = 0f;
-        Color c = vignetteImage.color;
 
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
-            c.a = Mathf.Lerp(from, to, elapsed / duration);
-            vignetteImage.color = c;
+
+            float t = elapsed / duration;
+            vignette.intensity.value = Mathf.Lerp(from, to, t);
+
             yield return null;
         }
 
-        c.a = to;
-        vignetteImage.color = c;
+        vignette.intensity.value = to;
     }
 }
