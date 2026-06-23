@@ -19,6 +19,11 @@ public class LifeManager : MonoBehaviour
 
     public AudioClip clipGameOver;
 
+    private GameObject[] boards;
+
+    public GameObject saveScore;
+    public GameObject leaderboard;
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -27,6 +32,12 @@ public class LifeManager : MonoBehaviour
             return;
         }
         Instance = this;
+
+        boards = GameObject.FindGameObjectsWithTag("Board");
+        foreach (GameObject board in boards)
+        {
+            board.SetActive(true);
+        }
     }
 
     void Start()
@@ -53,13 +64,19 @@ public class LifeManager : MonoBehaviour
     }
 
     void GameOver()
-    {
+    {   
+        leaderboard.SetActive(false);
         Debug.Log("Game Over!");
         spawner.StopSpawning();
         menu.Show();
         AudioSource.PlayClipAtPoint(clipGameOver, new Vector3(0f,0f,0f), 0.25f);
         _lives = maxLives; // Reset lives for next game
         score.ResetScore(); // Reset score for next game
+        foreach (GameObject board in boards)
+        {
+            board.SetActive(true);
+        }
+        saveScore.SetActive(true);
         UpdateUI();
     }
 }

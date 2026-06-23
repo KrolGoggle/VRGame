@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Colliders: []
   m_InteractionLayers:
     m_Bits: 1
-  m_DistanceCalculationMode: 1
+  m_DistanceCalculationMode: 0
   m_SelectMode: 0
   m_FocusMode: 1
   m_CustomReticle: {fileID: 0}
@@ -260,6 +260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abfeed05349c3d344b54e227b7245b9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  masterVolume: 0.5
   maxSpeed: 5
   maxPitch: 0.7
   minPitch: 0.4
@@ -320,7 +321,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

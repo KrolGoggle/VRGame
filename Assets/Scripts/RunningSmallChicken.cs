@@ -16,6 +16,7 @@ public class RunningSmallChicken : MonoBehaviour
     void Start()
     {
         SetRandomDirection();
+        SetRandomDirection();
     }
 
     void Update()

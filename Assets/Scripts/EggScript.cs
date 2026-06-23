@@ -4,7 +4,7 @@ using UnityEngine;
 public class RollingEggSound : MonoBehaviour
 {
     [Range(0f, 1f)]
-    public float masterVolume = 0.5f;
+    public float masterVolume = 0.7f;
     public float maxSpeed = 5f;
     public float maxPitch = 1.3f;
     public float minPitch = 0.8f;

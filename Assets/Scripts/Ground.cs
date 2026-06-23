@@ -9,6 +9,9 @@ public class Ground : MonoBehaviour
     public GameObject smallChicken;
     public GameObject explosionParticlesPrefab;
     public GameObject explosionSpritePrefab;
+    public GameObject eggParticlesPrefab;
+
+    public ScoreManager score;
 
     void Start()
     {
@@ -32,6 +35,10 @@ public class Ground : MonoBehaviour
             LifeManager.Instance?.LoseLife();
             AudioSource.PlayClipAtPoint(clipCrack, transform.position, 0.15f);
             Destroy(other.gameObject);
+            if (eggParticlesPrefab != null)
+            {
+                Instantiate(eggParticlesPrefab, other.transform.position, Quaternion.identity);
+            }
             Vector3 chickPosition = new Vector3(other.transform.position.x,0,other.transform.position.z);
             GameObject chick = Instantiate(smallChicken, chickPosition, Quaternion.identity);
             Destroy(chick, 3f);
@@ -39,7 +46,8 @@ public class Ground : MonoBehaviour
 
         if (other.CompareTag("RottenEgg"))
         {
-            AudioSource.PlayClipAtPoint(clipBOOM, transform.position, 0.15f);
+            AudioSource.PlayClipAtPoint(clipBOOM, other.transform.position, 0.15f);
+            score.AddPoint();
             if (explosionParticlesPrefab != null)
             {
                 Instantiate(explosionParticlesPrefab, other.transform.position, Quaternion.identity);
