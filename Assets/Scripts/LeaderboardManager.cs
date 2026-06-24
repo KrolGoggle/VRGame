@@ -24,12 +24,14 @@ public class LeaderboardManager : MonoBehaviour
     public TMP_Text displayBoardText;
     private int maxScoresOnBoard = 5;
 
-    private string savePath = "./leaderboard.json";
-    //private string savePath = Application.persistentDataPath + "/last_score.json";
+    //private string savePath = "./leaderboard.json";
+    private string savePath;
 
     void Awake()
     {
         if (Instance == null) Instance = this;
+
+        savePath = Application.persistentDataPath + "/last_score.json";
     }
 
     void Start()

@@ -3235,7 +3235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   livesText: {fileID: 761006548}
-  maxLives: 5
+  maxLives: 8
   menu: {fileID: 896696823}
   spawner: {fileID: 1671399120}
   score: {fileID: 1897711192}
@@ -18841,7 +18841,7 @@ MonoBehaviour:
   - {fileID: 374706314}
   xrInteractionManager: {fileID: 1943613786}
   startInterval: 3
-  minInterval: 0.6
+  minInterval: 0.5
   accelerationRate: 4
   accelerationStep: 0.08
   countdownDuration: 3
